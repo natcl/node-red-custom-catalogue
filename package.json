@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-custom-catalog",
+  "name": "node-red-contrib-custom-catalogue",
   "version": "0.1.0",
   "description": "A Node-RED plugin to access nodes hosted on a private registry",
   "main": "index.js",

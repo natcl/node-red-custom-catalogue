@@ -1,19 +1,19 @@
 module.exports = function(RED) {
   const got = require('got')
-  const PLUGIN_TYPE_ID = "node-red-contrib-custom-catalog";
+  const PLUGIN_TYPE_ID = "node-red-contrib-custom-catalogue";
 
-  class CustomCatalog {
+  class CustomCatalogue {
     constructor() {
       this.type = PLUGIN_TYPE_ID
-      this.config = RED.settings.customCatalogs
-      RED.httpAdmin.get('/catalog', async (req, res, next) => {
+      this.config = RED.settings.customCatalogues
+      RED.httpAdmin.get('/catalogue', async (req, res, next) => {
         const packages = await this.getAllPackages(this.config)
-        const catalog = {
-          name: 'Custom Catalog',
+        const catalogue = {
+          name: 'Custom Catalogue',
           updated_at: Date.now(),
           modules: packages
         }  
-        res.end(JSON.stringify(catalog, '', 2))
+        res.end(JSON.stringify(catalogue, '', 2))
       })
     }
 
@@ -87,6 +87,6 @@ module.exports = function(RED) {
   
   RED.plugins.registerPlugin(PLUGIN_TYPE_ID, {
       type: PLUGIN_TYPE_ID,
-      onadd: new CustomCatalog()
+      onadd: new CustomCatalogue()
   })
 }
