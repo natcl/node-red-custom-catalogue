@@ -6,7 +6,6 @@ module.exports = function(RED) {
     constructor() {
       this.type = PLUGIN_TYPE_ID
       this.config = RED.settings.customCatalogues
-      console.log('node-red-custom-catalog loaded')
       RED.httpAdmin.get('/catalogue', async (req, res, next) => {
         const packages = await this.getAllPackages(this.config)
         const catalogue = {
