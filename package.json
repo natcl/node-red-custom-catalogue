@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-custom-catalogue",
+  "name": "@natcl/node-red-custom-catalogue",
   "version": "0.1.0",
   "description": "A Node-RED plugin to access nodes hosted on a private registry",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/natcl/node-red-contrib-custom-catalog.git"
+    "url": "git+https://github.com/natcl/node-red-custom-catalogue.git"
   },
   "keywords": [
     "npm",
@@ -17,17 +17,21 @@
     "registry"
   ],
   "author": "Nathanaël Lécaudé",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/natcl/node-red-contrib-custom-catalog/issues"
+    "url": "https://github.com/natcl/node-red-custom-catalogue/issues"
   },
-  "homepage": "https://github.com/natcl/node-red-contrib-custom-catalog#readme",
+  "homepage": "https://github.com/natcl/node-red-custom-catalogue#readme",
   "devDependencies": {
-    "node-red": "^2.1.4"
+    "node-red": "^2.2.0"
   },
   "node-red": {
+    "version": ">=1.3.7",
     "plugins": {
       "custom-catalog": "index.js"
     }
+  },
+  "engines": {
+    "node": ">=12"
   }
 }
