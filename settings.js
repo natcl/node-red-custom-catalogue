@@ -5,7 +5,7 @@ module.exports = {
             type: 'gitlab',
             registryUrl: 'https://gitlab.com',
             registryToken: process.env.NPM_REGISTRY_TOKEN,
-            groupPath: 'momentfactory/mofalib',
+            groupPath: 'myorg/mynodes',
             packageFilter: 'node-red-contrib'
         }
       ],
