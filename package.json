@@ -1,6 +1,6 @@
 {
   "name": "@natcl/node-red-custom-catalogue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Node-RED plugin to access nodes hosted on a private registry",
   "main": "index.js",
   "scripts": {
