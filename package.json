@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/natcl/node-red-custom-catalogue#readme",
   "devDependencies": {
-    "node-red": "^2.2.0"
+    "node-red": "^2.2.0",
+    "standard": "^17.0.0"
   },
   "node-red": {
     "version": ">=1.3.7",

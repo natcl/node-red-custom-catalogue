@@ -1,9 +1,9 @@
-module.exports = function(RED) {
+module.exports = function (RED) {
   const got = require('got')
-  const PLUGIN_TYPE_ID = "node-red-contrib-custom-catalogue";
+  const PLUGIN_TYPE_ID = 'node-red-contrib-custom-catalogue'
 
   class CustomCatalogue {
-    constructor() {
+    constructor () {
       this.type = PLUGIN_TYPE_ID
       this.config = RED.settings.customCatalogues
       RED.httpAdmin.get('/catalogue', async (req, res, next) => {
@@ -12,16 +12,20 @@ module.exports = function(RED) {
           name: 'Custom Catalogue',
           updated_at: Date.now(),
           modules: packages
-        }  
+        }
         res.end(JSON.stringify(catalogue, '', 2))
       })
     }
 
-    async getAllPackages(_config) {
+    async getAllPackages (_config) {
       let allPackages = []
-      for (let config of _config) {
+      for (const config of _config) {
         if (config.type === 'gitlab') {
-          let packages = await this.getGitlabPackages("", [], config)
+          let packages = await this.getGitlabPackages('', [], config)
+          if (!packages) {
+            console.log('No packages found')
+            return
+          }
           packages = packages.filter(p => p.tags.nodes.map(t => t.name).includes('latest')).map(pp => {
             return {
               id: pp.name,
@@ -36,7 +40,7 @@ module.exports = function(RED) {
       return allPackages
     }
 
-    async getGitlabPackages(cursor = "", packages = [], config) {
+    async getGitlabPackages (cursor = '', packages = [], config) {
       const query = `
       {
         group(fullPath: "${config.groupPath}") {
@@ -63,19 +67,18 @@ module.exports = function(RED) {
         }
       }`
       try {
-        const {data} = await got.post(`${config.registryUrl}/api/graphql`, {
+        const { data } = await got.post(`${config.registryUrl}/api/graphql`, {
           json: {
             query: query
           },
           headers: {
             Authorization: `Bearer ${config.registryToken}`
           }
-        }).json();
-        
+        }).json()
         packages = packages.concat(data.group.packages.nodes)
-        
+
         if (data.group.packages.pageInfo.hasNextPage) {
-          return getPackages(data.group.packages.pageInfo.endCursor, packages, config)
+          return this.getGitlabPackages(data.group.packages.pageInfo.endCursor, packages, config)
         } else {
           return packages
         }
@@ -84,9 +87,9 @@ module.exports = function(RED) {
       }
     }
   }
-  
+
   RED.plugins.registerPlugin(PLUGIN_TYPE_ID, {
-      type: PLUGIN_TYPE_ID,
-      onadd: new CustomCatalogue()
+    type: PLUGIN_TYPE_ID,
+    onadd: new CustomCatalogue()
   })
 }
